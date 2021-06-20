@@ -1,26 +1,36 @@
-import { useState, useEffect } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useState } from "react";
+import router, { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
-import KVdb from "kvdb.io";
+import styles from "../styles/Home.module.css";
+import Image from "next/image";
+import Head from "next/head";
+import { getRepoData } from "../lib/repos";
+import { route } from "next/dist/next-server/server/router";
 
-export default function Home() {
+interface Props {
+  setRepoData: any;
+}
+
+const Home: React.FC<Props> = ({ setRepoData }) => {
   const [user, setUser] = useState<string>("");
   const [repo, setRepo] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const url = `https://api.github.com/repos/${user}/${repo}`;
     let res: AxiosResponse;
     try {
-      res = await axios.get(`https://api.github.com/repos/${user}/${repo}`);
+      res = await axios.get(url);
     } catch (err) {
       return setError(true);
     }
-    console.log(res.data);
+    const repoData = getRepoData(res.data);
+    setRepoData(repoData);
+    router.push("./edit");
   };
-  console.log("error: ", error);
   return (
     <div className={styles.container}>
       <Head>
@@ -55,4 +65,6 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default Home;

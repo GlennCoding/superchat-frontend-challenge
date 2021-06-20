@@ -1,7 +1,11 @@
+import { useState } from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const [repoData, setRepoData] = useState({});
+  return (
+    <Component {...pageProps} repoData={repoData} setRepoData={setRepoData} />
+  );
 }
 export default MyApp;
