@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
+import axios, { AxiosResponse } from "axios";
+import KVdb from "kvdb.io";
 
 export default function Home() {
-  const [user, setUser] = useState("");
-  const [repo, setRepo] = useState("");
+  const [user, setUser] = useState<string>("");
+  const [repo, setRepo] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    let res: AxiosResponse;
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/repos/${user}/${repo}`
-      );
-      const data = await res.json();
+      res = await axios.get(`https://api.github.com/repos/${user}/${repo}`);
     } catch (err) {
-      console.log(err);
+      return setError(true);
     }
+    console.log(res.data);
   };
+  console.log("error: ", error);
   return (
     <div className={styles.container}>
       <Head>
