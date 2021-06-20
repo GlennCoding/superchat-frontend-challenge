@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -21,7 +22,17 @@ const Index: React.FC<Props> = ({ repoData }) => {
     forks,
   } = repoData;
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const url = `http://localhost:3000/api/repos/create`;
+    let res: AxiosResponse;
+    try {
+      res = await axios.post(url, dummyData);
+    } catch (err) {
+      return console.log(err);
+    }
+    console.log(res);
+  };
 
   if (Object.keys(repoData).length === 0) {
     return (
@@ -42,7 +53,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
             <Image src={avatarUrl} height={144} width={144} alt={ownerName} />
           </div>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="pickIcon">Pick Icon</label>
           <input type="text" name="pickIcon" id="pickIcon" />
           <br />
@@ -73,3 +84,13 @@ const Index: React.FC<Props> = ({ repoData }) => {
 };
 
 export default Index;
+
+const dummyData = {
+  url: "https://github.com/vercel/next.js",
+  icon: 1,
+  color: 1,
+  showStats: true,
+  showLanguage: true,
+  showTopContributors: true,
+  fontStyle: 1,
+};
