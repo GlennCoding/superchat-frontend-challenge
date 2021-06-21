@@ -10,7 +10,6 @@ import IconModal from "../../components/iconModal";
 import ColorModal from "../../components/colorModal";
 import ShareRepoLink from "../../components/shareRepoLink";
 import RepoSettings from "../../components/repoSettings";
-import Icon from "../../components/icon";
 
 interface ModalProps {
   children: React.ReactNode;

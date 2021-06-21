@@ -50,6 +50,7 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
           Submit
         </Button>
       </form>
+      {/* TODO: Add Error Component */}
     </Layout>
   );
 };

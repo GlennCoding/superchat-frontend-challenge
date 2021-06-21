@@ -44,9 +44,8 @@ export const getTopContributors = async (url: string) => {
     return {};
   }
   const contributors = res.data;
-  console.log(contributors);
   const top10contributors = contributors
     .slice(0, 10)
-    .map((contributor) => contributor.login);
+    .map((contributor: any) => contributor.login);
   return top10contributors;
 };
