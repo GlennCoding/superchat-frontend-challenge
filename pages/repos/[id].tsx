@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
+import { server } from "../../config/index";
 
 interface Props {}
 
@@ -12,17 +13,15 @@ const Repo: React.FC<Props> = () => {
   const { id } = router.query;
 
   const componentDidMount = async () => {
-    const url = `http://localhost:3000/api/repos/${id}`;
+    const url = `${server}/api/repos/${id}`;
     let res: AxiosResponse;
     try {
       res = await axios.get(url);
-      setRepoData(res);
     } catch (err) {
-      console.log(err);
+      return console.log(err);
     }
-    console.log(repoData);
+    setRepoData(res.data);
   };
-
   useEffect(() => {
     componentDidMount();
   }, [id]);
@@ -34,11 +33,7 @@ const Repo: React.FC<Props> = () => {
       </div>
     );
   } else {
-    return (
-      <div>
-        Repo Page, id: {id} {repoData.url}
-      </div>
-    );
+    return <div>Repo Page, id: {id}</div>;
   }
 };
 

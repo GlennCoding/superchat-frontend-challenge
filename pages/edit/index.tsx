@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { server } from "../../config/index";
 
 interface Props {
   repoData: any;
@@ -29,7 +30,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const apiUrl = `http://localhost:3000/api/repos/create`;
+    const apiUrl = `${server}/api/repos/create`;
     let res: AxiosResponse;
     try {
       res = await axios.post(
@@ -48,7 +49,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
       return console.log("error:", err);
     }
     const repoID = res.data.repoId;
-    const newShareRepoUrl = `http://superchat-frontend-challenge-six.vercel.app/repos/${repoID}`;
+    const newShareRepoUrl = `${server}/repos/${repoID}`;
     setShareRepoUrl(newShareRepoUrl);
   };
   console.log(shareRepoUrl);
