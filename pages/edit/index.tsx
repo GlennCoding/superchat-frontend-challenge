@@ -66,28 +66,65 @@ const Index: React.FC<Props> = ({ repoData }) => {
   } else {
     return (
       <>
-        <div>
-          <h1>{repoName}</h1>
-          <h3>{description}</h3>
-          <div>
-            <Image src={avatarUrl} height={144} width={144} alt={ownerName} />
+        <nav className="ml-5 mt-5">
+          <h1 className="text-2xl text-white">Superrepos</h1>
+        </nav>
+        <main className="mx-5 mt-10 flex justify-center">
+          <div className="px-8 py-10 w-full md:max-w-screen-md bg-white rounded-2xl shadow-lg text-center">
+            <div className="mb-8">
+              <div className="mb-4">
+                <Image
+                  className="rounded-full"
+                  src={avatarUrl}
+                  height={122}
+                  width={122}
+                  alt={ownerName}
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl font-semibold">{repoName}</h1>
+                <h2 className="text-lg">{description}</h2>
+              </div>
+            </div>
+            <div>
+              <div className="mb-4">
+                <button className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none">
+                  Select Color
+                </button>
+                <button className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none">
+                  Select Font
+                </button>
+                <button
+                  className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
+                    showStats
+                      ? "bg-blue-500 hover:bg-blue-400"
+                      : "bg-red-500 hover:bg-red-400"
+                  }`}
+                  onClick={() => setShowStats(!showStats)}
+                >
+                  Show Stats: {showStats ? "True" : "False"}
+                </button>
+                <button
+                  className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
+                    showTopContributors
+                      ? "bg-blue-500 hover:bg-blue-400"
+                      : "bg-red-500 hover:bg-red-400"
+                  }`}
+                  type="button"
+                  onClick={() => setShowTopContributors(!showTopContributors)}
+                >
+                  Show Stats: {showTopContributors ? "True" : "False"}
+                </button>
+              </div>
+              <button
+                className="mb-2 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
+                onClick={handleSubmit}
+              >
+                Submit and Share
+              </button>
+            </div>
           </div>
-        </div>
-        <div>
-          <button type="button">Select Icon</button>
-          <button type="button">Select Color</button>
-          <button type="button" onClick={() => setShowStats(!showStats)}>
-            Show Stats: {showStats ? "True" : "False"}
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowTopContributors(!showTopContributors)}
-          >
-            Show Stats: {showTopContributors ? "True" : "False"}
-          </button>
-          <button>Select Font</button>
-          <button onClick={handleSubmit}>Submit and Share</button>
-        </div>
+        </main>
       </>
     );
   }
