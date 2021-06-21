@@ -9,7 +9,12 @@ interface Props {
 }
 
 const Index: React.FC<Props> = ({ repoData }) => {
-  const [showStats, setShowStats] = useState(true);
+  const [icon, setIcon] = useState<number>(1);
+  const [color, setColor] = useState<string>("#ff9500");
+  const [showStats, setShowStats] = useState<boolean>(true);
+  const [showTopContributors, setShowTopContributors] = useState<boolean>(true);
+  const [fontStyle, setFontStyle] = useState<string>("Roboto");
+  const [shareRepoUrl, setShareRepoUrl] = useState<string>("");
   const {
     url,
     ownerName,
@@ -24,15 +29,29 @@ const Index: React.FC<Props> = ({ repoData }) => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const url = `http://localhost:3000/api/repos/create`;
+    const apiUrl = `http://localhost:3000/api/repos/create`;
     let res: AxiosResponse;
     try {
-      res = await axios.post(url, dummyData);
+      res = await axios.post(
+        apiUrl,
+        {
+          url: url,
+          icon: icon,
+          color: color,
+          showStats: showStats,
+          showTopContributors: showTopContributors,
+          fontStyle: fontStyle,
+        },
+        { headers: { "Content-Type": "Application/json" } }
+      );
     } catch (err) {
-      return console.log(err);
+      return console.log("error:", err);
     }
-    console.log(res);
+    const repoID = res.data.repoId;
+    const newShareRepoUrl = `http://superchat-frontend-challenge-six.vercel.app/repos/${repoID}`;
+    setShareRepoUrl(newShareRepoUrl);
   };
+  console.log(shareRepoUrl);
 
   if (Object.keys(repoData).length === 0) {
     return (
@@ -48,49 +67,29 @@ const Index: React.FC<Props> = ({ repoData }) => {
       <>
         <div>
           <h1>{repoName}</h1>
-          <p>{description}</p>
+          <h3>{description}</h3>
           <div>
             <Image src={avatarUrl} height={144} width={144} alt={ownerName} />
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="pickIcon">Pick Icon</label>
-          <input type="text" name="pickIcon" id="pickIcon" />
-          <br />
-          <label htmlFor="color">Pick Color</label>
-          <input type="color" name="color" id="color" />
-          <br />
-          <label htmlFor="showStats">Show Stats</label>
-          <input type="checkbox" name="showStats" id="showStats" />
-          <br />
-          <label htmlFor="showLanguage">Show Language</label>
-          <input type="checkbox" name="showLanguage" id="showLanguage" />
-          <br />
-          <label htmlFor="showTopContributors">Show op Contributors</label>
-          <input
-            type="checkbox"
-            name="showTopContributors"
-            id="showTopContributors"
-          />
-          <br />
-          <label htmlFor="fontStyle">Pick Font-Style</label>
-          <input type="text" name="fontStyle" id="fontStyle" />
-          <br />
-          <button type="submit">Submit and Share</button>
-        </form>
+        <div>
+          <button type="button">Select Icon</button>
+          <button type="button">Select Color</button>
+          <button type="button" onClick={() => setShowStats(!showStats)}>
+            Show Stats: {showStats ? "True" : "False"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowTopContributors(!showTopContributors)}
+          >
+            Show Stats: {showTopContributors ? "True" : "False"}
+          </button>
+          <button>Select Font</button>
+          <button onClick={handleSubmit}>Submit and Share</button>
+        </div>
       </>
     );
   }
 };
 
 export default Index;
-
-const dummyData = {
-  url: "https://github.com/vercel/next.js",
-  icon: 1,
-  color: 1,
-  showStats: true,
-  showLanguage: true,
-  showTopContributors: true,
-  fontStyle: 1,
-};

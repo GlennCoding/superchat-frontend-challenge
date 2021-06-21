@@ -8,16 +8,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const data = req.body;
 
   while (true) {
-    const newID = uuidv4().slice(0, 7);
+    const newId = uuidv4().slice(0, 7);
     try {
-      await bucket.get(newID);
+      await bucket.get(newId);
     } catch {
       try {
-        await bucket.set(newID, JSON.stringify(data));
-        res.status(200).json({ repoID: newID });
+        await bucket.set(newId, JSON.stringify(data));
         false;
+        return res.status(200).json({ repoId: newId });
       } catch {
-        res.status(500);
+        return res.status(500);
       }
     }
   }
