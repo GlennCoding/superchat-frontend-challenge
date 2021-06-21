@@ -69,8 +69,8 @@ const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
 
 export default Repo;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.params.id;
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const id = query.id;
   let settings: {};
   let data: {};
   let contributors: {};
