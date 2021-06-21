@@ -1,4 +1,14 @@
-export const getRepoData = (data: any) => {
+import axios, { AxiosResponse } from "axios";
+
+export const getRepoData = async (url: string) => {
+  let res: AxiosResponse;
+  try {
+    res = await axios.get(url);
+  } catch (err) {
+    console.log(err);
+    return {};
+  }
+  const data = res.data;
   const repoData = {
     url: data.html_url,
     ownerName: data.owner.login,
@@ -11,4 +21,32 @@ export const getRepoData = (data: any) => {
     forks: data.forks,
   };
   return repoData;
+};
+
+export const getRepoSettings = async (url: string) => {
+  let res: AxiosResponse;
+  try {
+    res = await axios.get(url);
+  } catch (err) {
+    console.log(err);
+    return {};
+  }
+  const settings = res.data;
+  return settings;
+};
+
+export const getTopContributors = async (url: string) => {
+  let res: AxiosResponse;
+  try {
+    res = await axios.get(url);
+  } catch (err) {
+    console.log(err);
+    return {};
+  }
+  const contributors = res.data;
+  console.log(contributors);
+  const top10contributors = contributors
+    .slice(0, 10)
+    .map((contributor) => contributor.login);
+  return top10contributors;
 };
