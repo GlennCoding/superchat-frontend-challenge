@@ -1,6 +1,5 @@
 import { useState } from "react";
 import router, { useRouter } from "next/router";
-import axios, { AxiosResponse } from "axios";
 import Image from "next/image";
 import Head from "next/head";
 import { getRepoData } from "../lib/repos";
@@ -20,15 +19,13 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const url = `https://api.github.com/repos/${user}/${repo}`;
-    let res: AxiosResponse;
-    try {
-      res = await axios.get(url);
-    } catch (err) {
+    const repoData = await getRepoData(url);
+    if (Object.keys(repoData).length !== 0) {
+      setRepoData(repoData);
+    } else {
       return setError(true);
     }
-    const repoData = getRepoData(res.data);
-    setRepoData(repoData);
-    router.push("./edit");
+    router.push("./create");
   };
   return (
     <div>
@@ -42,10 +39,10 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
       </Head>
 
       <nav className="ml-5 mt-5">
-        <h1 className="text-2xl text-white">Superrepos</h1>
+        <p className="text-2xl text-white">Superrepos</p>
       </nav>
       <main className="mx-5 mt-10 flex justify-center">
-        <div className="px-8 py-10 w-full md:max-w-screen-md bg-white rounded-2xl shadow-lg">
+        <div className="px-8 py-10 w-full md:max-w-screen-sm bg-white rounded-2xl shadow-lg">
           <h2 className="text-xl text-center font-semibold mb-4">
             Create a superrepo
           </h2>
@@ -73,7 +70,7 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
               />
             </div>
             <button
-              className="mt-6 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg"
+              className="mt-6 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
               type="submit"
             >
               Submit
