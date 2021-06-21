@@ -31,7 +31,7 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
     router.push("./edit");
   };
   return (
-    <div className="container">
+    <div>
       <Head>
         <title>Superrepos</title>
         <meta
@@ -41,26 +41,45 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="m-2">
-        <form onSubmit={handleSubmit}>
-          <label>
-            User
-            <input
-              type="text"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-            />
-          </label>
-          <label>
-            Repository
-            <input
-              type="text"
-              value={repo}
-              onChange={(e) => setRepo(e.target.value)}
-            />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
+      <nav className="ml-5 mt-5">
+        <h1 className="text-2xl text-white">Superrepos</h1>
+      </nav>
+      <main className="mx-5 mt-10 flex justify-center">
+        <div className="px-8 py-10 w-full md:max-w-screen-md bg-white rounded-2xl shadow-lg">
+          <h2 className="text-xl text-center font-semibold mb-4">
+            Create a superrepo
+          </h2>
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col mb-2">
+              <label htmlFor="user">User</label>
+              <input
+                className="border py-2 px-3 text-grey-darkest rounded-lg"
+                type="text"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+                name="user"
+                id="user"
+              />
+            </div>
+            <div className="flex flex-col mb-2">
+              <label htmlFor="repo">Repository</label>
+              <input
+                className="border py-2 px-3 text-grey-darkest rounded-lg"
+                type="text"
+                value={repo}
+                onChange={(e) => setRepo(e.target.value)}
+                name="repo"
+                id="repo"
+              />
+            </div>
+            <button
+              className="mt-6 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </main>
     </div>
   );
