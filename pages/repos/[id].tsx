@@ -71,11 +71,10 @@ export default Repo;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query.id;
-  let settings: {};
-  let data: {};
-  let contributors: {};
+  let data;
+  let contributors;
   const url = `${server}/api/repos/${id}`;
-  settings = await getRepoSettings(url);
+  const settings = await getRepoSettings(url);
   if (Object.keys(settings).length !== 0) {
     const repoUrl = settings.url.split("/").slice(1).slice(-2);
     data = await getRepoData(
