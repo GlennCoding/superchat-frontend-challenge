@@ -160,37 +160,8 @@ const Index: React.FC<Props> = ({ repoData }) => {
                 <h2 className="text-lg">{description}</h2>
               </div>
             </div>
+
             <div>
-              <div className="mb-4">
-                <button
-                  className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none"
-                  onClick={() => setShowColorModal(true)}
-                >
-                  Select Color
-                </button>
-                <button
-                  className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
-                    showStats
-                      ? "bg-blue-500 hover:bg-blue-400"
-                      : "bg-red-500 hover:bg-red-400"
-                  }`}
-                  onClick={() => setShowStats(!showStats)}
-                >
-                  Show Stats: {showStats ? "True" : "False"}
-                </button>
-                <button
-                  className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
-                    showTopContributors
-                      ? "bg-blue-500 hover:bg-blue-400"
-                      : "bg-red-500 hover:bg-red-400"
-                  }`}
-                  type="button"
-                  onClick={() => setShowTopContributors(!showTopContributors)}
-                >
-                  Show Top Contributors:{" "}
-                  {showTopContributors ? "True" : "False"}
-                </button>
-              </div>
               {shareRepoUrl ? (
                 <div>
                   <div className="flex mb-4">
@@ -218,12 +189,46 @@ const Index: React.FC<Props> = ({ repoData }) => {
                   </p>
                 </div>
               ) : (
-                <button
-                  className="mb-2 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
-                  onClick={handleSubmit}
-                >
-                  Submit and Share
-                </button>
+                <div className="mb-4">
+                  <div>
+                    <button
+                      className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none"
+                      onClick={() => setShowColorModal(true)}
+                    >
+                      Select Color
+                    </button>
+                    <button
+                      className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
+                        showStats
+                          ? "bg-blue-500 hover:bg-blue-400"
+                          : "bg-red-500 hover:bg-red-400"
+                      }`}
+                      onClick={() => setShowStats(!showStats)}
+                    >
+                      Show Stats: {showStats ? "True" : "False"}
+                    </button>
+                    <button
+                      className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
+                        showTopContributors
+                          ? "bg-blue-500 hover:bg-blue-400"
+                          : "bg-red-500 hover:bg-red-400"
+                      }`}
+                      type="button"
+                      onClick={() =>
+                        setShowTopContributors(!showTopContributors)
+                      }
+                    >
+                      Show Top Contributors:{" "}
+                      {showTopContributors ? "True" : "False"}
+                    </button>
+                  </div>
+                  <button
+                    className="mb-2 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
+                    onClick={handleSubmit}
+                  >
+                    Submit and Share
+                  </button>
+                </div>
               )}
             </div>
           </div>
