@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
-import Image from "next/image";
+import { FaClipboard } from "react-icons/fa";
+import copy from "copy-to-clipboard";
 import { server } from "../../config/index";
 import icons from "../../public/icons";
 import colors from "../../public/colors";
@@ -192,13 +192,30 @@ const Index: React.FC<Props> = ({ repoData }) => {
                 </button>
               </div>
               {shareRepoUrl ? (
-                <div className="flex">
-                  <input
-                    className="flex-grow"
-                    type="text"
-                    value={shareRepoUrl}
-                  />
-                  <button>Copy</button>
+                <div>
+                  <div className="flex mb-4">
+                    <input
+                      className="flex-grow border py-2 px-3 text-grey-darkest rounded-lg mr-4"
+                      type="text"
+                      value={shareRepoUrl}
+                    />
+                    <button
+                      className="flex items-center py-2 px-3 transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
+                      onClick={() => copy(shareRepoUrl)}
+                    >
+                      <div className="mr-3">Copy</div>
+                      <FaClipboard className="object-center" />
+                    </button>
+                  </div>
+                  <p>
+                    Come and{" "}
+                    <a
+                      href={shareRepoUrl}
+                      className={`text-${colors[selectedColorIndex]}-500`}
+                    >
+                      take a look 👀
+                    </a>
+                  </p>
                 </div>
               ) : (
                 <button
