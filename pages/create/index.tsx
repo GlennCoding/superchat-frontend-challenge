@@ -10,6 +10,7 @@ import IconModal from "../../components/iconModal";
 import ColorModal from "../../components/colorModal";
 import ShareRepoLink from "../../components/shareRepoLink";
 import RepoSettings from "../../components/repoSettings";
+import Icon from "../../components/icon";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -96,9 +97,9 @@ const Index: React.FC<Props> = ({ repoData }) => {
         )}
         <Layout>
           <div className="mb-8 text-center">
-            <div className="flex justify-center">
+            <div className="mb-4 flex justify-center">
               <div
-                className="mb-4 w-min p-6 rounded-full cursor-pointer text-center shadow-lg text-6xl"
+                className="w-min p-6 rounded-full cursor-pointer text-center shadow-lg text-6xl"
                 onClick={() => !shareRepoUrl && setShowIconModal(true)}
               >
                 {icons[selectedIconIndex]}
@@ -124,10 +125,21 @@ const Index: React.FC<Props> = ({ repoData }) => {
               </Button>
             </>
           ) : (
-            <ShareRepoLink
-              url={shareRepoUrl}
-              selectedColorIndex={selectedColorIndex}
-            />
+            <div>
+              <ShareRepoLink
+                url={shareRepoUrl}
+                selectedColorIndex={selectedColorIndex}
+              />
+              <p>
+                Come and{" "}
+                <a
+                  href={shareRepoUrl}
+                  className={`text-${colors[selectedColorIndex]}-500`}
+                >
+                  take a look 👀
+                </a>
+              </p>
+            </div>
           )}
         </Layout>
       </div>

@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={`py-2 block w-full transition-colors duration-150 bg-${color}-500 hover:bg-${color}-400 text-white rounded-lg focus:outline-none`}
+      className={`py-2 block w-full transition-colors duration-150 bg-${color}-500 hover:bg-${color}-400 text-white rounded-lg focus:outline-none shadow-md`}
       type={type}
       onClick={onClick}
     >
