@@ -1,11 +1,15 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
-import { FaClipboard } from "react-icons/fa";
-import copy from "copy-to-clipboard";
 import { server } from "../../config/index";
 import icons from "../../public/icons";
 import colors from "../../public/colors";
+import Layout from "../../components/layout";
+import Button from "../../components/button";
+import IconModal from "../../components/iconModal";
+import ColorModal from "../../components/colorModal";
+import ShareRepoLink from "../../components/shareRepoLink";
+import RepoSettings from "../../components/repoSettings";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -33,17 +37,8 @@ const Index: React.FC<Props> = ({ repoData }) => {
   const [showIconModal, setShowIconModal] = useState<boolean>(false);
   const [selectedColorIndex, setSelectedColorIndex] = useState<number>(1);
   const [showColorModal, setShowColorModal] = useState<boolean>(false);
-  const {
-    url,
-    ownerName,
-    repoName,
-    description,
-    avatarUrl,
-    language,
-    stars,
-    watchers,
-    forks,
-  } = repoData;
+  const { url, repoName, description } = repoData;
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const apiUrl = `${server}/api/repos/create`;
@@ -68,16 +63,15 @@ const Index: React.FC<Props> = ({ repoData }) => {
     const newShareRepoUrl = `${server}/repos/${repoID}`;
     setShareRepoUrl(newShareRepoUrl);
   };
-  console.log(shareRepoUrl);
 
   if (Object.keys(repoData).length === 0) {
     return (
-      <div>
-        <h1>Empty Page</h1>
+      <Layout>
+        <h1 className="text-lg font-semibold">Session Ended</h1>
         <Link href="/">
-          <a>Go back to homepage</a>
+          <a className="text-blue-500">Go back to homepage</a>
         </Link>
-      </div>
+      </Layout>
     );
   } else {
     return (
@@ -85,154 +79,57 @@ const Index: React.FC<Props> = ({ repoData }) => {
         className={`fixed bg-${colors[selectedColorIndex]}-500 inset-0 w-full h-full`}
       >
         {showIconModal && (
-          <Modal>
-            <h3 className="text-lg font-semibold mb-8">Pick an icon</h3>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              {icons.map((icon: any, index) => {
-                //icons[iconKey] -> child
-                return (
-                  <div
-                    className={`bg-red-200 transition-colors duration-150 h-20 rounded-lg text-6xl flex justify-center items-center shadow-md hover:bg-red-300 cursor-pointer ${
-                      index === selectedIconIndex && "bg-pink-500"
-                    }`}
-                    key={index}
-                    onClick={() => setSelectedIconIndex(index)}
-                  >
-                    {icon}
-                  </div>
-                );
-              })}
-            </div>
-            <button
-              className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none"
-              onClick={() => setShowIconModal(false)}
-            >
-              Save
-            </button>
-          </Modal>
+          <IconModal
+            selectedIconIndex={selectedIconIndex}
+            setSelectedIconIndex={setSelectedIconIndex}
+            setShowIconModal={setShowIconModal}
+          />
         )}
         {showColorModal && (
           <Modal>
-            <h3 className="text-lg font-semibold mb-8">Pick a color</h3>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              {colors.map((color: any, index) => {
-                return (
-                  <div
-                    className={`transition-colors duration-150 h-20 rounded-lg text-6xl flex justify-center items-center shadow-md hover:bg-${
-                      colors[index]
-                    }-500 cursor-pointer ${
-                      index === selectedColorIndex
-                        ? `bg-${colors[index]}-500`
-                        : `bg-${colors[index]}-200`
-                    }`}
-                    key={index}
-                    onClick={() => setSelectedColorIndex(index)}
-                  >
-                    {" "}
-                  </div>
-                );
-              })}
-            </div>
-            <button
-              className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none"
-              onClick={() => setShowColorModal(false)}
-            >
-              Save
-            </button>
+            <ColorModal
+              selectedColorIndex={selectedColorIndex}
+              setSelectedColorIndex={setSelectedColorIndex}
+              setShowColorModal={setShowColorModal}
+            />
           </Modal>
         )}
-        <nav className="ml-5 mt-5">
-          <p className="text-2xl text-white">Superrepos</p>
-        </nav>
-        <main className="mx-5 mt-10 flex justify-center">
-          <div className="px-8 py-10 w-full md:max-w-screen-sm bg-white rounded-2xl shadow-lg text-center">
-            <div className="mb-8">
-              <div className="flex justify-center">
-                <div
-                  className="mb-4 w-min p-6 rounded-full cursor-pointer text-center shadow-lg text-6xl"
-                  onClick={() => setShowIconModal(true)}
-                >
-                  {icons[selectedIconIndex]}
-                </div>
-              </div>
-              <div>
-                <h1 className="text-2xl font-semibold">{repoName}</h1>
-                <h2 className="text-lg">{description}</h2>
+        <Layout>
+          <div className="mb-8 text-center">
+            <div className="flex justify-center">
+              <div
+                className="mb-4 w-min p-6 rounded-full cursor-pointer text-center shadow-lg text-6xl"
+                onClick={() => !shareRepoUrl && setShowIconModal(true)}
+              >
+                {icons[selectedIconIndex]}
               </div>
             </div>
-
             <div>
-              {shareRepoUrl ? (
-                <div>
-                  <div className="flex mb-4">
-                    <input
-                      className="flex-grow border py-2 px-3 text-grey-darkest rounded-lg mr-4"
-                      type="text"
-                      value={shareRepoUrl}
-                    />
-                    <button
-                      className="flex items-center py-2 px-3 transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
-                      onClick={() => copy(shareRepoUrl)}
-                    >
-                      <div className="mr-3">Copy</div>
-                      <FaClipboard className="object-center" />
-                    </button>
-                  </div>
-                  <p>
-                    Come and{" "}
-                    <a
-                      href={shareRepoUrl}
-                      className={`text-${colors[selectedColorIndex]}-500`}
-                    >
-                      take a look 👀
-                    </a>
-                  </p>
-                </div>
-              ) : (
-                <div className="mb-4">
-                  <div>
-                    <button
-                      className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none"
-                      onClick={() => setShowColorModal(true)}
-                    >
-                      Select Color
-                    </button>
-                    <button
-                      className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
-                        showStats
-                          ? "bg-blue-500 hover:bg-blue-400"
-                          : "bg-red-500 hover:bg-red-400"
-                      }`}
-                      onClick={() => setShowStats(!showStats)}
-                    >
-                      Show Stats: {showStats ? "True" : "False"}
-                    </button>
-                    <button
-                      className={`mb-2 py-2 block w-full transition-colors duration-150 text-white rounded-lg focus:outline-none ${
-                        showTopContributors
-                          ? "bg-blue-500 hover:bg-blue-400"
-                          : "bg-red-500 hover:bg-red-400"
-                      }`}
-                      type="button"
-                      onClick={() =>
-                        setShowTopContributors(!showTopContributors)
-                      }
-                    >
-                      Show Top Contributors:{" "}
-                      {showTopContributors ? "True" : "False"}
-                    </button>
-                  </div>
-                  <button
-                    className="mb-2 py-2 block w-full transition-colors duration-150 bg-green-500 hover:bg-green-400 text-white rounded-lg focus:outline-none"
-                    onClick={handleSubmit}
-                  >
-                    Submit and Share
-                  </button>
-                </div>
-              )}
+              <h1 className="text-2xl font-semibold">{repoName}</h1>
+              <h2 className="text-lg">{description}</h2>
             </div>
           </div>
-        </main>
+
+          {!shareRepoUrl ? (
+            <>
+              <RepoSettings
+                setShowColorModal={setShowColorModal}
+                showStats={showStats}
+                setShowStats={setShowStats}
+                showTopContributors={showTopContributors}
+                setShowTopContributors={setShowTopContributors}
+              />
+              <Button color="green" onClick={handleSubmit}>
+                Submit and Share
+              </Button>
+            </>
+          ) : (
+            <ShareRepoLink
+              url={shareRepoUrl}
+              selectedColorIndex={selectedColorIndex}
+            />
+          )}
+        </Layout>
       </div>
     );
   }
