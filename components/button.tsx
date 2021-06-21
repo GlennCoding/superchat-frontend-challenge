@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
   color: string;
   type?: "button" | "reset" | "submit";
-  onClick: () => void;
+  onClick?: any;
 }
 
 const Button: React.FC<Props> = ({
@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={`mt-6 py-2 block w-full transition-colors duration-150 bg-${color}-500 hover:bg-${color}-400 text-white rounded-lg focus:outline-none`}
+      className={`py-2 block w-full transition-colors duration-150 bg-${color}-500 hover:bg-${color}-400 text-white rounded-lg focus:outline-none`}
       type={type}
       onClick={onClick}
     >

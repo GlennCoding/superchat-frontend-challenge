@@ -37,12 +37,6 @@ const IconModal: React.FC<Props> = ({
           );
         })}
       </div>
-      <button
-        className="mb-2 py-2 block w-full transition-colors duration-150 bg-blue-500 hover:bg-blue-400 text-white rounded-lg focus:outline-none"
-        onClick={() => setShowIconModal(false)}
-      >
-        Save
-      </button>
       <Button color="blue" onClick={handleSave}>
         Save
       </Button>

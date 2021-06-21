@@ -40,7 +40,7 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
             <Input value={user} onChange={(e) => setUser(e.target.value)} />
           </label>
         </div>
-        <div className="mb-2">
+        <div className="mb-8">
           <label>
             Repo
             <Input value={repo} onChange={(e) => setRepo(e.target.value)} />
