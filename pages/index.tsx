@@ -1,7 +1,6 @@
 import { useState } from "react";
 import router, { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
-import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Head from "next/head";
 import { getRepoData } from "../lib/repos";
@@ -32,7 +31,7 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
     router.push("./edit");
   };
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>Superrepos</title>
         <meta
@@ -42,7 +41,7 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="m-2">
         <form onSubmit={handleSubmit}>
           <label>
             User
