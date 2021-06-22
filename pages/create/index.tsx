@@ -10,6 +10,7 @@ import IconModal from "../../components/iconModal";
 import ColorModal from "../../components/colorModal";
 import ShareRepoLink from "../../components/shareRepoLink";
 import RepoSettings from "../../components/repoSettings";
+import BackgroundColor from "../../components/backgroundColor"
 
 interface ModalProps {
   children: React.ReactNode;
@@ -75,9 +76,8 @@ const Index: React.FC<Props> = ({ repoData }) => {
     );
   } else {
     return (
-      <div
-        className={`fixed bg-${colors[selectedColorIndex]}-500 inset-0 w-full h-full`}
-      >
+      <>
+      <BackgroundColor color={colors[selectedColorIndex]}/>
         {showIconModal && (
           <IconModal
             selectedIconIndex={selectedIconIndex}
@@ -141,7 +141,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
             </div>
           )}
         </Layout>
-      </div>
+        </>
     );
   }
 };

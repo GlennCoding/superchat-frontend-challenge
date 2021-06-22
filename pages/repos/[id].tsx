@@ -7,6 +7,7 @@ import Layout from "../../components/layout";
 import Button from "../../components/button";
 import StatsItem from "../../components/statsItem";
 import Icon from "../../components/icon";
+import BackgroundColor from "../../components/backgroundColor";
 import {
   getRepoData,
   getRepoSettings,
@@ -26,7 +27,8 @@ const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
   console.log(description);
 
   return (
-    <div className={`fixed bg-${colors[color]}-500 inset-0 w-full h-full`}>
+    <>
+      <BackgroundColor color={colors[color]} />
       <Layout>
         <div className="text-center">
           <div className="mb-8">
@@ -63,7 +65,7 @@ const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
           </div>
         </div>
       </Layout>
-    </div>
+    </>
   );
 };
 
