@@ -30,9 +30,13 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
   };
   return (
     <Layout>
-      <h2 className="text-xl text-center font-semibold mb-4">
-        Create a superrepo
-      </h2>
+      <div className="text-center mb-4">
+        <h2 className="text-xl font-semibold mb-4">Create a Superrepo</h2>
+        <p>
+          Generate a GitHub repository link that is worth sharing on social
+          media! ✌️
+        </p>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-2">
           <label>
