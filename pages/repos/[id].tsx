@@ -57,9 +57,9 @@ const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
           </div>
           <div className="mt-12">
             <div className="mb-4">
-              <Button color={colors[color]}>
-                <a href={url}>Open on GitHub</a>
-              </Button>
+              <a href={url}>
+                <Button color={colors[color]}>Open on GitHub</Button>
+              </a>
             </div>
             <ShareRepoLink url={url} />
           </div>
