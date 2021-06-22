@@ -37,13 +37,21 @@ const Home: React.FC<Props> = ({ setRepoData }) => {
         <div className="mb-2">
           <label>
             User
-            <Input value={user} onChange={(e) => setUser(e.target.value)} />
+            <Input
+              value={user}
+              placeholder={"facebook"}
+              onChange={(e) => setUser(e.target.value)}
+            />
           </label>
         </div>
         <div className="mb-8">
           <label>
             Repo
-            <Input value={repo} onChange={(e) => setRepo(e.target.value)} />
+            <Input
+              value={repo}
+              placeholder={"react"}
+              onChange={(e) => setRepo(e.target.value)}
+            />
           </label>
         </div>
         <Button color="green" type="submit">
