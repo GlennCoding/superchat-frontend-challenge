@@ -10,21 +10,7 @@ import IconModal from "../../components/iconModal";
 import ColorModal from "../../components/colorModal";
 import ShareRepoLink from "../../components/shareRepoLink";
 import RepoSettings from "../../components/repoSettings";
-import BackgroundColor from "../../components/backgroundColor"
-
-interface ModalProps {
-  children: React.ReactNode;
-}
-
-const Modal: React.FC<ModalProps> = ({ children }) => {
-  return (
-    <div className="fixed inset-0 w-full h-full grid place-items-center bg-gray-200 bg-opacity-50">
-      <div className="px-8 py-10 w-full md:max-w-screen-sm bg-white rounded-2xl shadow-lg text-center h-auto">
-        {children}
-      </div>
-    </div>
-  );
-};
+import BackgroundColor from "../../components/backgroundColor";
 
 interface Props {
   repoData: any;
@@ -77,7 +63,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
   } else {
     return (
       <>
-      <BackgroundColor color={colors[selectedColorIndex]}/>
+        <BackgroundColor color={colors[selectedColorIndex]} />
         {showIconModal && (
           <IconModal
             selectedIconIndex={selectedIconIndex}
@@ -86,13 +72,11 @@ const Index: React.FC<Props> = ({ repoData }) => {
           />
         )}
         {showColorModal && (
-          <Modal>
-            <ColorModal
-              selectedColorIndex={selectedColorIndex}
-              setSelectedColorIndex={setSelectedColorIndex}
-              setShowColorModal={setShowColorModal}
-            />
-          </Modal>
+          <ColorModal
+            selectedColorIndex={selectedColorIndex}
+            setSelectedColorIndex={setSelectedColorIndex}
+            setShowColorModal={setShowColorModal}
+          />
         )}
         <Layout>
           <div className="mb-8 text-center">
@@ -141,7 +125,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
             </div>
           )}
         </Layout>
-        </>
+      </>
     );
   }
 };

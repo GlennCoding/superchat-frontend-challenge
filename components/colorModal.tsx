@@ -21,7 +21,7 @@ const ColorModal: React.FC<Props> = ({
   return (
     <Modal>
       <h3 className="text-lg font-semibold mb-8">Pick a color</h3>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {colors.map((color: any, index) => {
           return (
             <div
