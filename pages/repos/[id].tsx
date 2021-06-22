@@ -82,7 +82,7 @@ export default Repo;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query.id;
-  const currentUrl = `${server}/repos${id}`;
+  const currentUrl = `${server}/repos/${id}`;
   let data;
   let contributors;
   const url = `${server}/api/repos/${id}`;
