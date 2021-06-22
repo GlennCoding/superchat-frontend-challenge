@@ -18,14 +18,17 @@ interface Props {
   settings: any;
   data: any;
   contributors: string[];
+  currentUrl: string;
 }
 
-const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
+const Repo: React.FC<Props> = ({
+  settings,
+  data,
+  contributors,
+  currentUrl,
+}) => {
   const { url, color, icon, showStats, showTopContributors } = settings;
   const { repoName, ownerName, description, watchers, stars, forks } = data;
-
-  console.log(description);
-
   return (
     <>
       <BackgroundColor color={colors[color]} />
@@ -67,7 +70,7 @@ const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
                 <Button color={colors[color]}>Open on GitHub</Button>
               </a>
             </div>
-            <ShareRepoLink url={window.location.href} />
+            <ShareRepoLink url={currentUrl} />
           </div>
         </div>
       </Layout>
@@ -79,6 +82,7 @@ export default Repo;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query.id;
+  const currentUrl = `${server}/repos${id}`;
   let data;
   let contributors;
   const url = `${server}/api/repos/${id}`;
@@ -104,6 +108,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       settings,
       data,
       contributors,
+      currentUrl,
       fallback: false,
     },
   };
