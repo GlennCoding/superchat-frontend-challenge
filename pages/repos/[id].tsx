@@ -29,19 +29,22 @@ const Repo: React.FC<Props> = ({
 }) => {
   const { url, color, icon, showStats, showTopContributors } = settings;
   const { repoName, ownerName, description, watchers, stars, forks } = data;
+  const currentColor = colors[color];
   return (
     <>
-      <BackgroundColor color={colors[color]} />
+      <BackgroundColor color={currentColor} />
       <Layout>
         <div className="text-center">
           <div className="mb-8">
             <Icon>{icons[icon]}</Icon>
             <div className="mb-8">
-              <h1 className="text-2xl font-semibold">{repoName}</h1>
+              <h1 className={`text-4xl font-bold text-${currentColor}-500`}>
+                {repoName}
+              </h1>
               <h2 className="text-lg">by {ownerName}</h2>
             </div>
             {showStats && (
-              <div className="flex flex-wrap justify-center flex-row justify-evenly mb-4">
+              <div className="flex flex-wrap flex-col sm:flex-row sm:justify-evenly mb-4">
                 <StatsItem color="green" url={`${url}/subscription`}>
                   👀 Watchers | {watchers}
                 </StatsItem>
@@ -67,7 +70,7 @@ const Repo: React.FC<Props> = ({
           <div className="mt-12">
             <div className="mb-4">
               <a href={url}>
-                <Button color={colors[color]}>Open on GitHub</Button>
+                <Button color={currentColor}>Open on GitHub</Button>
               </a>
             </div>
             <ShareRepoLink url={currentUrl} />

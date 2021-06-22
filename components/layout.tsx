@@ -30,8 +30,8 @@ const Layout: React.FC<Props> = ({ children }) => {
           </a>
         </Link>
       </header>
-      <main className="mx-5 mt-10 flex justify-center">
-        <div className="px-8 py-10 w-full md:max-w-screen-sm bg-white rounded-2xl shadow-lg">
+      <main className="mx-5 my-10 flex justify-center">
+        <div className="px-8 py-10 w-full max-w-screen-sm bg-white rounded-2xl shadow-lg">
           {children}
         </div>
       </main>
