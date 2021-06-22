@@ -39,9 +39,15 @@ const Repo: React.FC<Props> = ({ settings, data, contributors }) => {
             </div>
             {showStats && (
               <div className="flex flex-wrap justify-center flex-row justify-evenly mb-4">
-                <StatsItem color="green">👀 Watchers | {watchers}</StatsItem>
-                <StatsItem color="yellow">⭐️ Stars | {stars}</StatsItem>
-                <StatsItem color="purple">🍴 Forks | {forks}</StatsItem>
+                <StatsItem color="green" url={`${url}/subscription`}>
+                  👀 Watchers | {watchers}
+                </StatsItem>
+                <StatsItem color="yellow" url={url}>
+                  ⭐️ Stars | {stars}
+                </StatsItem>
+                <StatsItem color="purple" url={`${url}/fork`}>
+                  🍴 Forks | {forks}
+                </StatsItem>
               </div>
             )}
             <div className="mb-4">
