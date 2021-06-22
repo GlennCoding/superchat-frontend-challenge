@@ -19,13 +19,15 @@ const Layout: React.FC<Props> = ({ children }) => {
       </Head>
       <header className="m-5">
         <Link href="/">
-          <Image
-            className="cursor-pointer"
-            src="/logo-white.svg"
-            width="200"
-            height="38"
-            alt="Logo"
-          ></Image>
+          <a>
+            <Image
+              className="cursor-pointer"
+              src="/logo-white.svg"
+              width="200"
+              height="38"
+              alt="Logo"
+            ></Image>
+          </a>
         </Link>
       </header>
       <main className="mx-5 mt-10 flex justify-center">
