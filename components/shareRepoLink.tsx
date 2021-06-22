@@ -12,7 +12,7 @@ const ShareRepoLink: React.FC<Props> = ({ url, selectedColorIndex = 2 }) => {
     <div>
       <div className="flex mb-4">
         <input
-          className="flex-grow border py-2 px-3 text-grey-darkest rounded-lg mr-4"
+          className="flex-grow border py-2 px-3 text-grey-darkest rounded-lg mr-4 focus:outline-none focus:ring focus:border-blue-100"
           type="text"
           value={url}
         />
