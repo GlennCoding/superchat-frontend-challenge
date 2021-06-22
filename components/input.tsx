@@ -20,6 +20,7 @@ const Input: React.FC<Props> = ({
       value={value}
       onChange={onChange}
       required={required}
+      placeholder={placeholder}
     />
   );
 };
