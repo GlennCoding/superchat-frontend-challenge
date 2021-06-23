@@ -1,7 +1,6 @@
 import React from "react";
 
 interface Props {
-  children: React.ReactNode;
   color: string;
   type?: "button" | "reset" | "submit";
   onClick?: any;

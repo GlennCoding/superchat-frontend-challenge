@@ -2,11 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Head>

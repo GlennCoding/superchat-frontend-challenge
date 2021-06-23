@@ -4,10 +4,9 @@ import colors from "../public/colors";
 
 interface Props {
   url: string;
-  selectedColorIndex?: number;
 }
 
-const ShareRepoLink: React.FC<Props> = ({ url, selectedColorIndex = 2 }) => {
+const ShareRepoLink: React.FC<Props> = ({ url }) => {
   return (
     <div>
       <div className="flex mb-4">
