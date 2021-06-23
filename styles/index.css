@@ -5,3 +5,9 @@
 body {
   @apply bg-yellow-500;
 }
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
