@@ -109,10 +109,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
             </>
           ) : (
             <div>
-              <ShareRepoLink
-                url={shareRepoUrl}
-                selectedColorIndex={selectedColorIndex}
-              />
+              <ShareRepoLink url={shareRepoUrl} />
               <p>
                 Come and{" "}
                 <a
