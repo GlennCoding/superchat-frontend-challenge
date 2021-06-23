@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import colors from "../public/colors";
+import colors from "../constants/colors";
 import Button from "./button";
 import Modal from "./modal";
 
@@ -22,7 +22,7 @@ const ColorModal: React.FC<Props> = ({
     <Modal>
       <h3 className="text-lg font-semibold mb-8">Pick a color</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {colors.map((color: any, index) => {
+        {colors.map((color, index) => {
           return (
             <div
               className={`transition-colors duration-150 h-20 rounded-lg text-6xl flex justify-center items-center shadow-md hover:bg-${

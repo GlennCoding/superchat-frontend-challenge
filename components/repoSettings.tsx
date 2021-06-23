@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import Button from "./button";
 
 interface Props {
-  setShowColorModal: Dispatch<SetStateAction<boolean>>;
+  setIsColorModalOpen: Dispatch<SetStateAction<boolean>>;
   showStats: boolean;
   setShowStats: Dispatch<SetStateAction<boolean>>;
   showTopContributors: boolean;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const RepoSettings: React.FC<Props> = ({
-  setShowColorModal,
+  setIsColorModalOpen,
   showStats,
   setShowStats,
   showTopContributors,
@@ -19,7 +19,7 @@ const RepoSettings: React.FC<Props> = ({
   return (
     <div className="mb-4">
       <div className="mb-2">
-        <Button color="pink" onClick={() => setShowColorModal(true)}>
+        <Button color="pink" onClick={() => setIsColorModalOpen(true)}>
           Select Color
         </Button>
       </div>

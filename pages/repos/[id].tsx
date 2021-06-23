@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { server } from "../../config/index";
-import icons from "../../public/icons";
-import colors from "../../public/colors";
+import icons from "../../constants/icons";
+import colors from "../../constants/colors";
 import ShareRepoLink from "../../components/shareRepoLink";
 import Layout from "../../components/layout";
 import Button from "../../components/button";
@@ -22,13 +22,11 @@ interface Props {
 }
 
 const Repo: React.FC<Props> = ({
-  settings,
-  data,
+  settings: { url, color, icon, showStats, showTopContributors },
+  data: { repoName, ownerName, description, watchers, stars, forks },
   contributors,
   currentUrl,
 }) => {
-  const { url, color, icon, showStats, showTopContributors } = settings;
-  const { repoName, ownerName, description, watchers, stars, forks } = data;
   const currentColor = colors[color];
   return (
     <>

@@ -1,6 +1,5 @@
 import { FaClipboard } from "react-icons/fa";
 import copy from "copy-to-clipboard";
-import colors from "../public/colors";
 
 interface Props {
   url: string;

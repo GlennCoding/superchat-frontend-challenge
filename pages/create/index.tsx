@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 import { server } from "../../config/index";
-import icons from "../../public/icons";
-import colors from "../../public/colors";
+import icons from "../../constants/icons";
+import colors from "../../constants/colors";
 import Layout from "../../components/layout";
 import Button from "../../components/button";
 import IconModal from "../../components/iconModal";
@@ -16,21 +16,23 @@ interface Props {
   repoData: any;
 }
 
-const Index: React.FC<Props> = ({ repoData }) => {
+const Index: React.FC<Props> = ({
+  repoData: { url, repoName, description },
+}) => {
   const [showStats, setShowStats] = useState<boolean>(true);
   const [showTopContributors, setShowTopContributors] = useState<boolean>(true);
   const [shareRepoUrl, setShareRepoUrl] = useState<string>("");
   const [selectedIconIndex, setSelectedIconIndex] = useState<number>(0);
-  const [showIconModal, setShowIconModal] = useState<boolean>(false);
+  const [isIconModalOpen, setIsIconModalOpen] = useState<boolean>(false);
   const [selectedColorIndex, setSelectedColorIndex] = useState<number>(1);
-  const [showColorModal, setShowColorModal] = useState<boolean>(false);
-  const { url, repoName, description } = repoData;
+  const [isColorModalOpen, setIsColorModalOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const apiUrl = `${server}/api/repos/create`;
     let res: AxiosResponse;
     try {
+      console.log("save");
       res = await axios.post(
         apiUrl,
         {
@@ -43,15 +45,18 @@ const Index: React.FC<Props> = ({ repoData }) => {
         },
         { headers: { "Content-Type": "Application/json" } }
       );
+      console.log("Fetch successful");
     } catch (err) {
+      console.log("error");
       return console.log("error:", err);
     }
     const repoID = res.data.repoId;
     const newShareRepoUrl = `${server}/repos/${repoID}`;
     setShareRepoUrl(newShareRepoUrl);
   };
+  console.log("repo url:", shareRepoUrl);
 
-  if (Object.keys(repoData).length === 0) {
+  if (!url) {
     return (
       <Layout>
         <h1 className="text-lg font-semibold">Session Ended</h1>
@@ -64,18 +69,18 @@ const Index: React.FC<Props> = ({ repoData }) => {
     return (
       <>
         <BackgroundColor color={colors[selectedColorIndex]} />
-        {showIconModal && (
+        {isIconModalOpen && (
           <IconModal
             selectedIconIndex={selectedIconIndex}
             setSelectedIconIndex={setSelectedIconIndex}
-            setShowIconModal={setShowIconModal}
+            setIsIconModalOpen={setIsIconModalOpen}
           />
         )}
-        {showColorModal && (
+        {isColorModalOpen && (
           <ColorModal
             selectedColorIndex={selectedColorIndex}
             setSelectedColorIndex={setSelectedColorIndex}
-            setShowColorModal={setShowColorModal}
+            setShowColorModal={setIsColorModalOpen}
           />
         )}
         <Layout>
@@ -83,7 +88,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
             <div className="mb-4 flex justify-center">
               <div
                 className="w-min p-6 rounded-full cursor-pointer text-center shadow-lg text-6xl"
-                onClick={() => !shareRepoUrl && setShowIconModal(true)}
+                onClick={() => !shareRepoUrl && setIsIconModalOpen(true)}
               >
                 {icons[selectedIconIndex]}
               </div>
@@ -97,7 +102,7 @@ const Index: React.FC<Props> = ({ repoData }) => {
           {!shareRepoUrl ? (
             <>
               <RepoSettings
-                setShowColorModal={setShowColorModal}
+                setIsColorModalOpen={setIsColorModalOpen}
                 showStats={showStats}
                 setShowStats={setShowStats}
                 showTopContributors={showTopContributors}
